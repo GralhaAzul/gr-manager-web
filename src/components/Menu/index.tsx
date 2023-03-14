@@ -43,7 +43,7 @@ export function Menu() {
           <MenuSubListContainer>
             <MenuSubList>
               <li>
-                <a href="">
+                <a href="/emails">
                   <FontAwesomeIcon icon={faEnvelope} size="sm" />
                   E-mails
                 </a>
