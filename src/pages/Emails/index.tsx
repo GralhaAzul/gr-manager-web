@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {
+  faClose,
   faEye,
   faEyeSlash,
   faPencil,
@@ -7,8 +8,12 @@ import {
   faTrash,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useEffect, useMemo, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
+
 import { EmailContainer, EmailItem, EmailTable } from './styles'
+
+import { ModalDialog } from '../../components/ModalDialog'
 
 interface EmailProps {
   id: string
@@ -19,7 +24,6 @@ interface EmailProps {
 }
 
 export function Email() {
-  const [inputPasswordVisible, setInputPasswordVisible] = useState(0)
   const [emails, setEmails] = useState([
     {
       id: '1',
@@ -36,6 +40,10 @@ export function Email() {
       visible: 0,
     },
   ])
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [inputName, setInputName] = useState('')
+  const [inputEmail, setInputEmail] = useState('')
+  const [inputPassword, setInputPassword] = useState('')
 
   useEffect(() => {
     emails.forEach((email, index) => {
@@ -45,10 +53,29 @@ export function Email() {
     })
   }, [emails])
 
+  /* Input Functions */
   function handleInputTypePassword(email: EmailProps) {
     email.visible = email.visible ? 0 : 1
 
     setEmails([...emails])
+  }
+
+  /* Modal Functions */
+  function handleShowModalDialog(id: string) {
+    const modalDialog = document.getElementById(id) as HTMLDialogElement
+
+    modalDialog.showModal()
+  }
+
+  function handleCloseModalDialog(id: string) {
+    const modalDialog = document.getElementById(id) as HTMLDialogElement
+
+    modalDialog.close()
+  }
+
+  /* Form */
+  function handleFormSubmit(e: FormEvent) {
+    e.preventDefault()
   }
 
   return (
@@ -58,7 +85,9 @@ export function Email() {
         <thead>
           <tr>
             <td>
-              <button>
+              <button
+                onClick={() => handleShowModalDialog('createEmailDialog')}
+              >
                 <FontAwesomeIcon icon={faPlus} size="sm" color={'green'} />
               </button>
             </td>
@@ -87,7 +116,7 @@ export function Email() {
                   disabled
                 />
                 <button onClick={() => handleInputTypePassword(email)}>
-                  {inputPasswordVisible ? (
+                  {email.visible ? (
                     <FontAwesomeIcon
                       icon={faEyeSlash}
                       size="sm"
@@ -102,6 +131,24 @@ export function Email() {
           ))}
         </tbody>
       </EmailTable>
+      <ModalDialog id="createEmailDialog">
+        <header>
+          <h1>teste</h1>
+          <button onClick={() => handleCloseModalDialog('createEmailDialog')}>
+            <FontAwesomeIcon icon={faClose} size="lg" />
+          </button>
+        </header>
+        <main>
+          <form onSubmit={handleFormSubmit}>
+            <label htmlFor="name">Nome</label>
+            <input id="name" type="text" value={inputName} />
+            <label htmlFor="email">E-mail</label>
+            <input id="email" type="email" value={inputEmail} />
+            <label htmlFor="password">Senha</label>
+            <input id="password" type="password" value={inputPassword} />
+          </form>
+        </main>
+      </ModalDialog>
     </EmailContainer>
   )
 }
