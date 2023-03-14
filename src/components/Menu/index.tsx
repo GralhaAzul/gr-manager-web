@@ -1,19 +1,57 @@
-import { MenuContainer } from './styles'
+import {
+  MenuContainer,
+  MenuLogo,
+  MenuList,
+  MenuLogoContainer,
+  MenuSubList,
+  MenuSubListContainer,
+  MenuListItem,
+} from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faNetworkWired, faBox } from '@fortawesome/free-solid-svg-icons'
+import {
+  faNetworkWired,
+  faBox,
+  faEnvelope,
+  faPrint,
+} from '@fortawesome/free-solid-svg-icons'
+
+import logoGRWhite from '../../assets/Logo_Gralha_White.svg'
 
 export function Menu() {
   return (
     <MenuContainer>
-      <h1>Menu</h1>
-      <ul>
-        <li>
+      <MenuLogoContainer>
+        <MenuLogo src={logoGRWhite} alt="" />
+      </MenuLogoContainer>
+
+      <MenuList>
+        <MenuListItem>
           <FontAwesomeIcon icon={faNetworkWired} size="sm" />
-        </li>
-        <li>
+          <MenuSubListContainer>
+            <MenuSubList>
+              <li>
+                <a href="">
+                  <FontAwesomeIcon icon={faPrint} size="sm" />
+                  Impressoras
+                </a>
+              </li>
+            </MenuSubList>
+          </MenuSubListContainer>
+        </MenuListItem>
+        <MenuListItem>
           <FontAwesomeIcon icon={faBox} size="sm" />
-        </li>
-      </ul>
+          <MenuSubListContainer>
+            <MenuSubList>
+              <li>
+                <a href="">
+                  <FontAwesomeIcon icon={faEnvelope} size="sm" />
+                  E-mails
+                </a>
+              </li>
+            </MenuSubList>
+          </MenuSubListContainer>
+        </MenuListItem>
+      </MenuList>
     </MenuContainer>
   )
 }

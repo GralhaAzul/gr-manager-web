@@ -17,7 +17,10 @@ export const defaultTheme = {
 
   'linear-midnight':
     'linear-gradient(166.95deg, rgba(30, 14, 75, 1) 0%, rgba(1, 0, 74, 0.47) 100%)',
-  'purple-100': 'rgba(1,0,74,47)',
+  'purple-100': '#DBBCFF',
+  'purple-200': '#A68ACF',
+  'purple-300': '#745A9B',
+  'purple-500': '#442E6A',
   'purple-600': '#1e0e4b',
   'purple-900': '#17053D',
 }
